@@ -1,0 +1,195 @@
+<h1>Панель администратора</h1>
+
+<!-- Форма для создания участника -->
+<div class="form-container">
+  <h2>Создать участника</h2>
+  <form (ngSubmit)="createParticipant()">
+    <!-- Имя -->
+    <label for="participantName">Имя:</label>
+    <input
+      type="text"
+      id="participantName"
+      [(ngModel)]="participantForm.name"
+      name="name"
+      required
+    />
+
+    <!-- Логин -->
+    <label for="participantUsername">Логин:</label>
+    <input
+      type="text"
+      id="participantUsername"
+      [(ngModel)]="participantForm.username"
+      name="username"
+      required
+    />
+
+    <!-- Email -->
+    <label for="participantEmail">Email:</label>
+    <input
+      type="email"
+      id="participantEmail"
+      [(ngModel)]="participantForm.email"
+      name="email"
+      required
+    />
+
+    <!-- Пароль -->
+    <label for="participantPassword">Пароль:</label>
+    <input
+      type="password"
+      id="participantPassword"
+      [(ngModel)]="participantForm.password"
+      name="password"
+      required
+    />
+
+    <!-- Телефон -->
+    <label for="participantPhone">Телефон:</label>
+    <input
+      type="text"
+      id="participantPhone"
+      [(ngModel)]="participantForm.phone"
+      name="phone"
+    />
+
+    <!-- Роль -->
+    <label for="participantRole">Роль:</label>
+    <select
+      id="participantRole"
+      [(ngModel)]="participantForm.role"
+      name="role"
+      required
+    >
+      <option value="user">Пользователь</option>
+      <option value="admin">Администратор</option>
+    </select>
+
+    <!-- ID тренировки -->
+    <label for="participantTrainingId">ID тренировки:</label>
+    <input
+      type="number"
+      id="participantTrainingId"
+      [(ngModel)]="participantForm.trainingId"
+      name="trainingId"
+      required
+    />
+
+    <button type="submit">Добавить участника</button>
+  </form>
+</div>
+
+<!-- Форма для создания тренировки -->
+<div class="form-container">
+  <h2>Создать тренировку</h2>
+  <form>
+    <!-- Название -->
+    <label for="trainingName">Название:</label>
+    <input
+      type="text"
+      id="trainingName"
+      [(ngModel)]="trainingForm.name"
+      name="name"
+      required
+    />
+
+    <!-- Описание -->
+    <label for="trainingDescription">Описание:</label>
+    <textarea
+      id="trainingDescription"
+      [(ngModel)]="trainingForm.description"
+      name="description"
+    ></textarea>
+
+    <!-- Дата начала -->
+    <label for="trainingStartDate">Дата начала:</label>
+    <input
+      type="date"
+      id="trainingStartDate"
+      [(ngModel)]="trainingForm.startDate"
+      name="startDate"
+      required
+    />
+
+    <!-- Время начала -->
+    <label for="trainingStartTime">Время начала:</label>
+    <input
+      type="time"
+      id="trainingStartTime"
+      [(ngModel)]="trainingForm.startTime"
+      name="startTime"
+      required
+    />
+
+    <!-- Дата окончания -->
+    <label for="trainingEndDate">Дата окончания:</label>
+    <input
+      type="date"
+      id="trainingEndDate"
+      [(ngModel)]="trainingForm.endDate"
+      name="endDate"
+      required
+    />
+
+    <!-- Время окончания -->
+    <label for="trainingEndTime">Время окончания:</label>
+    <input
+      type="time"
+      id="trainingEndTime"
+      [(ngModel)]="trainingForm.endTime"
+      name="endTime"
+      required
+    />
+
+    <!-- Максимальное количество участников -->
+    <label for="trainingMaxParticipants">Максимальное количество участников:</label>
+    <input
+      type="number"
+      id="trainingMaxParticipants"
+      [(ngModel)]="trainingForm.maxParticipants"
+      name="maxParticipants"
+      required
+    />
+
+    <button type="button" (click)="createTraining()">Создать тренировку</button>
+  </form>
+</div>
+
+<!-- Список тренировок -->
+<div class="form-container">
+  <h2>Список тренировок</h2>
+  <div *ngIf="isLoadingTrainings">Загрузка тренировок...</div>
+  <div *ngIf="!isLoadingTrainings && trainings.length === 0">
+    Нет доступных тренировок.
+  </div>
+  <ul *ngIf="!isLoadingTrainings && trainings.length > 0">
+    <li *ngFor="let training of trainings">
+      <strong>{{ training.name }}</strong> (ID: {{ training.id }})
+      <br />
+      Участники: {{ training.participantsCount }}/{{ training.maxParticipants }}
+      <br />
+      Описание: {{ training.description }}
+      <br />
+
+      <!-- Кнопка для просмотра деталей -->
+      <button (click)="viewTrainingDetails(training.id)">
+        Просмотреть детали
+      </button>
+
+      <!-- Кнопка для удаления -->
+      <button (click)="deleteTraining(training.id)">Удалить тренировку</button>
+    </li>
+  </ul>
+</div>
+
+<!-- Детали тренировки -->
+<div class="form-container" *ngIf="selectedTraining">
+  <h2>Детали тренировки</h2>
+  <p><strong>ID:</strong> {{ selectedTraining.id }}</p>
+  <p><strong>Название:</strong> {{ selectedTraining.name }}</p>
+  <p><strong>Описание:</strong> {{ selectedTraining.description }}</p>
+  <p><strong>Дата начала:</strong> {{ selectedTraining.startDate }}</p>
+  <p><strong>Дата окончания:</strong> {{ selectedTraining.endDate }}</p>
+  <p><strong>Максимум участников:</strong> {{ selectedTraining.maxParticipants }}</p>
+  <p><strong>Количество участников:</strong> {{ selectedTraining.participantsCount }}</p>
+</div>

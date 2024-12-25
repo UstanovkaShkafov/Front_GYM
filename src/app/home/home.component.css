@@ -1,0 +1,40 @@
+/* Контейнер для текста */
+.home-description {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9; /* Лёгкий фон */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для объёма */
+    font-family: 'Arial', sans-serif; /* Шрифт */
+    line-height: 1.8;
+    color: #333; /* Цвет текста */
+  }
+  
+  /* Заголовок */
+  .home-description h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: dark; /* Цвет заголовка */
+    text-align: center;
+  }
+  
+  /* Описание */
+  .home-description p {
+    font-size: 1.2em;
+    margin-bottom: 35px;
+    text-align: justify;
+  }
+  
+  /* Список */
+  .home-description ul {
+    list-style-type: disc;
+    margin: 20px 0 20px 20px;
+    padding: 0;
+    font-size: 1.1em;
+  }
+  
+  .home-description ul li {
+    margin-bottom: 10px;
+  }
+  

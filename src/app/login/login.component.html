@@ -1,0 +1,32 @@
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+  <label for="username">Имя пользователя</label>
+  <input
+    id="username"
+    name="username"
+    [(ngModel)]="username"
+    #usernameInput="ngModel"
+    required
+  />
+  <div *ngIf="usernameInput.invalid && usernameInput.touched">
+    Поле обязательно для заполнения
+  </div>
+
+  <label for="password">Пароль</label>
+  <input
+    id="password"
+    name="password"
+    type="password"
+    [(ngModel)]="password"
+    #passwordInput="ngModel"
+    required
+  />
+  <div *ngIf="passwordInput.invalid && passwordInput.touched">
+    Поле обязательно для заполнения
+  </div>
+
+  <button type="submit" [disabled]="loginForm.invalid">Войти</button>
+
+  <div *ngIf="errorMessage" style="color: red;">
+    {{ errorMessage }}
+  </div>
+</form>

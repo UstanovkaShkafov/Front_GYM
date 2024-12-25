@@ -1,0 +1,82 @@
+<!-- Панель управления -->
+<div class="controls">
+    <input
+      type="text"
+      placeholder="Поиск тренировок"
+      [(ngModel)]="searchTerm"
+      class="search-input"
+    />
+    <button (click)="onSort('name')">
+      Сортировать по названию {{ sortBy === 'name' ? (sortDirection === 'asc' ? '↑' : '↓') : '' }}
+    </button>
+    <button (click)="onSort('startDate')">
+      Сортировать по дате {{ sortBy === 'startDate' ? (sortDirection === 'asc' ? '↑' : '↓') : '' }}
+    </button>
+    <button (click)="onSort('participantsCount')">
+      Сортировать по участникам {{ sortBy === 'participantsCount' ? (sortDirection === 'asc' ? '↑' : '↓') : '' }}
+    </button>
+    <button (click)="isTableView = !isTableView">
+      {{ isTableView ? 'Переключиться на карточки' : 'Переключиться на таблицу' }}
+    </button>
+  </div>
+  
+  <!-- Таблица -->
+  <div *ngIf="isTableView">
+    <table>
+      <thead>
+        <tr>
+          <th (click)="onSort('name')" class="clickable">
+            Название {{ sortBy === 'name' ? (sortDirection === 'asc' ? '↑' : '↓') : '' }}
+          </th>
+          <th>
+            Описание
+          </th>
+          <th (click)="onSort('startDate')" class="clickable">
+            Дата {{ sortBy === 'startDate' ? (sortDirection === 'asc' ? '↑' : '↓') : '' }}
+          </th>
+          <th (click)="onSort('participantsCount')" class="clickable">
+            Участники {{ sortBy === 'participantsCount' ? (sortDirection === 'asc' ? '↑' : '↓') : '' }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let training of filteredAndSortedTrainings">
+          <td (click)="goToTrainingDetails(training.id)" class="clickable">
+            {{ training.name }}
+          </td>
+          <td>{{ training.description || 'Нет описания' }}</td>
+          <td>{{ training.startDate | date: 'shortDate' }}</td>
+          <td>{{ training.participantsCount }}/{{ training.maxParticipants }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Карточки -->
+  <div *ngIf="!isTableView">
+    <div *ngFor="let training of filteredAndSortedTrainings" class="card">
+      <h3 (click)="goToTrainingDetails(training.id)" class="clickable">
+        {{ training.name }}
+      </h3>
+      <p>{{ training.description || 'Нет описания' }}</p>
+      <p>{{ training.startDate | date: 'shortDate' }}</p>
+      <p>Участники: {{ training.participantsCount }}/{{ training.maxParticipants }}</p>
+      <!-- Прогресс-бар -->
+      <div class="progress-bar"
+        [ngClass]="{
+            'full': training.maxParticipants > 0 && (training.participantsCount / training.maxParticipants) === 1,
+            'critical': training.maxParticipants > 0 && (training.participantsCount / training.maxParticipants) < 0.3,
+            'low': training.maxParticipants > 0 && (training.participantsCount / training.maxParticipants) >= 0.3 && (training.participantsCount / training.maxParticipants) < 1
+        }">
+      <div
+        class="progress"
+        [style.width.%]="calculateProgress(training.participantsCount, training.maxParticipants)">
+        {{ calculateProgress(training.participantsCount, training.maxParticipants) }}%
+      </div>
+    </div>
+    
+    
+    
+    </div>
+  </div>
+  

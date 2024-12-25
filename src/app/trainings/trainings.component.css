@@ -1,0 +1,202 @@
+/* Общие стили таблицы */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f4f4f4;
+    cursor: pointer;
+  }
+  
+  th.sortable:hover {
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  td {
+    background-color: #ffffff;
+  }
+  
+  td.clickable {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: underline;
+  }
+  
+  td.clickable:hover {
+    color: #0056b3;
+  }
+  
+  /* Кнопки */
+  button {
+    margin: 5px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  button:hover:not(:disabled) {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  button:active:not(:disabled) {
+    transform: scale(1);
+  }
+  
+  /* Кнопки сортировки */
+  button.sort-button {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  button.sort-button.active {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  button.sort-button:hover {
+    background-color: #5a6268;
+    color: white;
+  }
+  
+  /* Поле поиска */
+  .search-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  
+  .search-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    transition: box-shadow 0.2s ease;
+  }
+  
+  /* Карточки */
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  .card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+  }
+  
+  .card h3 {
+    margin: 0 0 10px;
+    cursor: pointer;
+    color: #007bff;
+  }
+  
+  .card h3:hover {
+    text-decoration: underline;
+  }
+  
+  /* Прогресс-бар */
+  .progress-bar {
+    background-color: #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 20px;
+    max-width: 300px;
+    margin: 10px 0;
+    position: relative;
+  }
+  
+  .progress {
+    background-color: #007bff;
+    height: 100%;
+    text-align: center;
+    color: white;
+    line-height: 20px;
+    font-size: 12px;
+    border-radius: 8px 0 0 8px;
+    transition: width 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .progress-bar.full .progress {
+    background-color: #28a745; /* Зеленый для полностью заполненного */
+  }
+  
+  .progress-bar.low .progress {
+    background-color: #ffc107; /* Желтый для частично заполненного */
+  }
+  
+  .progress-bar.critical .progress {
+    background-color: #dc3545; /* Красный для низкого заполнения */
+  }
+  
+  /* Панель управления */
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .controls button {
+    flex: 1 1 auto;
+    min-width: 120px;
+    max-width: 200px;
+  }
+  
+  .controls .search-input {
+    flex: 1 1 100%;
+    max-width: 300px;
+  }
+  
+  /* Hover-эффект для всех кнопок */
+  button:hover:not(:disabled) {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    table, th, td {
+      font-size: 12px;
+    }
+  
+    .controls {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    button {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+  }
+  

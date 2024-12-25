@@ -1,0 +1,35 @@
+<div *ngIf="isLoading" class="loading">
+    Загрузка данных о тренировке...
+  </div>
+  
+  <div *ngIf="!isLoading && training">
+    <h1>{{ training.name }}</h1>
+    <p><strong>Описание:</strong> {{ training.description }}</p>
+    <p><strong>Дата начала:</strong> {{ training.startDate | date: 'shortDate' }}</p>
+    <p><strong>Дата окончания:</strong> {{ training.endDate | date: 'shortDate' }}</p>
+    <p><strong>Продолжительность:</strong> {{ training.duration }}</p>
+    <p><strong>Участники:</strong> {{ training.participantsCount }}/{{ training.maxParticipants }}</p>
+  
+    <!-- Кнопки -->
+    <div>
+      <!-- Кнопка записи -->
+      <button (click)="joinTraining()" [disabled]="isJoining">
+        {{ isJoining ? 'Запись в процессе...' : 'Записаться' }}
+      </button>
+  
+      <!-- Кнопка отказа -->
+      <button (click)="leaveTraining()" [disabled]="isLeaving">
+        {{ isLeaving ? 'Отказ в процессе...' : 'Отказаться от тренировки' }}
+      </button>
+    </div>
+  
+    <!-- Сообщение для неавторизованных пользователей -->
+    <p *ngIf="!isLoggedIn" class="warning">
+      Войдите, чтобы записаться или отказаться от тренировки.
+    </p>
+  </div>
+  
+  <div *ngIf="!isLoading && !training" class="error">
+    Тренировка не найдена.
+  </div>
+  

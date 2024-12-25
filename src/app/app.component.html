@@ -1,0 +1,29 @@
+<header>
+  <div class="header-logo">
+    <img src="assets/logo.png" alt="Training App Logo" />
+    <h1>ActiveArena</h1>
+  </div>
+  <nav>
+    <ul>
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/trainings">Trainings</a></li>
+      <!-- Кнопка для входа -->
+      <li *ngIf="!isLoggedIn"><a routerLink="/login">Login</a></li>
+      <!-- Кнопка выхода -->
+      <li *ngIf="isLoggedIn"><button (click)="logout()">Logout</button></li>
+      <!-- Кнопка для админа -->
+      <li *ngIf="isAdmin">
+        <button (click)="goToAdminPanel()">Admin Panel</button>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<footer>
+  <p>&copy; 2024 Training App. All rights reserved.</p>
+</footer>
